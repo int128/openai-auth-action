@@ -1,13 +1,18 @@
-name: typescript-action
-description: Template of TypeScript Action
+name: openai-auth-action
+description: Acquire a short-live token with OpenAI workload identity federation.
 inputs:
-  name:
-    description: Example
+  audience:
+    description: Audience
     required: true
+  identity-provider-id:
+    description: Workload identity provider ID
+    required: true
+  service-account-id:
+    description: Service account ID
+    required: true
+outputs:
   token:
-    description: GitHub token
-    required: true
-    default: ${{ github.token }}
+    description: A short-lived token for OpenAI
 runs:
   using: 'node24'
   main: 'dist/index.js'
