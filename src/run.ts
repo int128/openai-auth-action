@@ -8,7 +8,7 @@ type Inputs = {
 }
 
 export const run = async (inputs: Inputs): Promise<void> => {
-  core.info(`Fetching an ID token for audience ${inputs.audience} from GitHub Actions`)
+  core.info(`Fetching an ID token from GitHub Actions`)
   const actionsToken = await core.getIDToken(inputs.audience)
 
   const tokenRequestPayload = createTokenRequestPayload({
@@ -27,7 +27,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
   core.info(`Fetching an access token from OpenAI`)
   const tokenResponse = await fetch(tokenRequest)
   if (!tokenResponse.ok) {
-    throw new Error(`OpenAI returned an error response: ${tokenResponse.status}`)
+    throw new Error(`OpenAI returned an error response: ${tokenResponse.status}: ${tokenResponse.text()}`)
   }
 
   const tokenResponsePayload = await tokenResponse.json()
