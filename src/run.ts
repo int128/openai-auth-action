@@ -27,7 +27,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
   core.info(`Fetching an access token from OpenAI`)
   const tokenResponse = await fetch(tokenRequest)
   if (!tokenResponse.ok) {
-    throw new Error(`OpenAI returned an error response: ${tokenResponse.status}: ${tokenResponse.text()}`)
+    throw new Error(`OpenAI returned an error response: ${tokenResponse.status}: ${await tokenResponse.text()}`)
   }
 
   const tokenResponsePayload = await tokenResponse.json()
