@@ -1,15 +1,18 @@
 # openai-auth-action [![ts](https://github.com/int128/openai-auth-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/openai-auth-action/actions/workflows/ts.yaml)
 
-This action acquires a short-live token with OpenAI workload identity federation.
+This action authenticates to the OpenAI API with the workload identity federation.
 
-## TL;DR
-
-- Do not store your API key to GitHub Actions secrets.
-- Use the Workload identity federation to authenticate with OpenAI.
+It exchanges a GitHub Actions OIDC token for a short-lived OpenAI access token.
+You do not need to store your long-lived API key to GitHub Actions secrets.
 
 ## Getting Started
 
+Set up [an workload identity federation in OpenAI for GitHub Actions](https://developers.openai.com/api/docs/guides/workload-identity-federation/github-actions).
+
+Store the workload identity provider ID and the service account ID to GitHub Actions variables or secrets.
+
 Here is an example workflow.
+You can pass a short-lived token to your application via the environment variable `OPENAI_API_KEY`.
 
 ```yaml
 jobs:
@@ -33,11 +36,11 @@ jobs:
 
 ### Inputs
 
-| Name                   | Default    | Description                 |
-| ---------------------- | ---------- | --------------------------- |
-| `audience`             | (required) | Audience                    |
-| `identity-provider-id` | (required) | OpenAI Identity Provider ID |
-| `service-account-id`   | (required) | OpenAI Service account ID   |
+| Name                   | Default    | Description                           |
+| ---------------------- | ---------- | ------------------------------------- |
+| `audience`             | (required) | Audience of GitHub Actions OIDC token |
+| `identity-provider-id` | (required) | OpenAI workload identity provider ID  |
+| `service-account-id`   | (required) | OpenAI service account ID             |
 
 ### Outputs
 
