@@ -1,14 +1,14 @@
 name: openai-auth-action
-description: Acquire a short-live token with OpenAI workload identity federation.
+description: Authenticate to the OpenAI API with the workload identity federation.
 inputs:
   audience:
-    description: Audience
+    description: Audience of GitHub Actions OIDC token
     required: true
   identity-provider-id:
-    description: Workload identity provider ID
+    description: OpenAI workload identity provider ID
     required: true
   service-account-id:
-    description: Service account ID
+    description: OpenAI service account ID
     required: true
 outputs:
   token:
