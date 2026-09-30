@@ -31,17 +31,26 @@ export const run = async (inputs: Inputs): Promise<void> => {
   }
 
   const tokenResponsePayload = await tokenResponse.json()
-  assert(
-    typeof tokenResponsePayload === 'object',
-    `token response must be an object but was ${typeof tokenResponsePayload}`,
-  )
-  assert(tokenResponsePayload != null, 'token response must not be null')
-  assert('access_token' in tokenResponsePayload, 'token response must contain access_token field')
-  assert(typeof tokenResponsePayload.access_token === 'string', 'access_token must be a string')
+  assetTokenResponsePayload(tokenResponsePayload)
+  core.info(`Got an access token (expires at ${new Date(tokenResponsePayload.expires_at).toISOString()})`)
 
   const openaiToken: string = tokenResponsePayload.access_token
   core.setSecret(openaiToken)
   core.setOutput('token', openaiToken)
+}
+
+type TokenResponsePayload = {
+  access_token: string
+  expires_at: number
+}
+
+function assetTokenResponsePayload(x: unknown): asserts x is TokenResponsePayload {
+  assert(typeof x === 'object', `token response must be an object but was ${typeof x}`)
+  assert(x != null, 'token response must not be null')
+  assert('access_token' in x, 'token response must contain access_token field')
+  assert(typeof x.access_token === 'string', 'access_token must be a string')
+  assert('expires_at' in x, 'token response must contain expires_at field')
+  assert(typeof x.expires_at === 'number', 'expires_at must be a number')
 }
 
 const createTokenRequestPayload = (inputs: {
