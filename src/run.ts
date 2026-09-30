@@ -39,6 +39,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
   core.setOutput('token', openaiToken)
 }
 
+// https://developers.openai.com/api/reference/workload-identity-federation#response
 type TokenResponsePayload = {
   access_token: string
   expires_at: number
