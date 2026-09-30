@@ -32,7 +32,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
 
   const tokenResponsePayload = await tokenResponse.json()
   assetTokenResponsePayload(tokenResponsePayload)
-  core.info(`Got an access token (expires at ${new Date(tokenResponsePayload.expires_at).toISOString()})`)
+  core.info(`Got an access token (expires at ${new Date(tokenResponsePayload.expires_at * 1000).toISOString()})`)
 
   const openaiToken: string = tokenResponsePayload.access_token
   core.setSecret(openaiToken)
