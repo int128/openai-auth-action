@@ -14,5 +14,5 @@ outputs:
   token:
     description: A short-lived token for OpenAI
 runs:
-  using: 'node24'
-  main: 'dist/index.js'
+  using: "node24"
+  main: "dist/index.js"
